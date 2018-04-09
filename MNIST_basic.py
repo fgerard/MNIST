@@ -1,4 +1,7 @@
 import tensorflow as tf
+# from matplotlib import pyplot as plt
+from random import randint
+
 
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
@@ -28,22 +31,20 @@ for _ in range(10000):
     sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 
 
-correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
+correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
 
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
-print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
+print(sess.run(accuracy, feed_dict={x: mnist.test.images,
+                                    y_: mnist.test.labels}))
 
 
-#from matplotlib import pyplot as plt
-from random import randint
-
-for i in range(0,20):
+for i in range(0, 20):
     num = randint(0, mnist.test.images.shape[0])
     img = mnist.test.images[num]
     classification = sess.run(tf.argmax(y, 1), feed_dict={x: [img]})
-    #plt.imshow(img.reshape(28, 28), cmap=plt.cm.binary)
-    #plt.show()
-    print('NN predicted', classification[0]," label:",mnist.test.labels[num])
+    # plt.imshow(img.reshape(28, 28), cmap=plt.cm.binary)
+    # plt.show()
+    print('NN predicted', classification[0], " label:", mnist.test.labels[num])
 
 sess.close()

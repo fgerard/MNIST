@@ -7,8 +7,9 @@ from os import path
 
 import png
 
+
 # source: http://abel.ee.ucla.edu/cvxopt/_downloads/mnist.py
-def read(dataset = "training", path = "."):
+def read(dataset="training", path="."):
     if dataset is "training":
         fname_img = os.path.join(path, 'train-images-idx3-ubyte')
         fname_lbl = os.path.join(path, 'train-labels-idx1-ubyte')
@@ -30,6 +31,7 @@ def read(dataset = "training", path = "."):
 
     return lbl, img, size, rows, cols
 
+
 def write_dataset(labels, data, size, rows, cols, output_dir):
     # create output directories
     output_dirs = [
@@ -47,10 +49,11 @@ def write_dataset(labels, data, size, rows, cols, output_dir):
         with open(output_filename, "wb") as h:
             w = png.Writer(cols, rows, greyscale=True)
             data_i = [
-                data[ (i*rows*cols + j*cols) : (i*rows*cols + (j+1)*cols) ]
+                data[(i*rows*cols + j*cols): (i*rows*cols + (j+1)*cols)]
                 for j in range(rows)
             ]
             w.write(h, data_i)
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
